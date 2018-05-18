@@ -1,0 +1,20 @@
+-- Table: public."Run"
+
+-- DROP TABLE public."Run";
+
+CREATE TABLE public."Run"
+(
+    "RunId" integer NOT NULL DEFAULT nextval('"Run_RunId_seq"'::regclass),
+    "LeftCount" integer NOT NULL,
+    "RightCount" integer NOT NULL,
+    "Score" integer NOT NULL,
+    "Distance" real NOT NULL,
+    CONSTRAINT "Run_pkey" PRIMARY KEY ("RunId")
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE public."Run"
+    OWNER to postgres;

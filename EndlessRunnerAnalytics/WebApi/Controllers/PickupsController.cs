@@ -12,44 +12,45 @@ using WebApi.Models;
 
 namespace WebApi.Controllers
 {
-    public class RunsController : ApiController
+    public class PickupsController : ApiController
     {
         private PGDbContext db = new PGDbContext();
 
-        // GET: api/Runs
-        public IQueryable<Run> GetRuns()
+        // GET: api/Pickups
+        public List<Pickup> GetPickups()
         {
-            return db.Runs;
+			Pickup[] arr = db.Pickups.ToArray();
+            return db.Pickups.ToList();
         }
 
-        // GET: api/Runs/5
-        [ResponseType(typeof(Run))]
-        public IHttpActionResult GetRun(int id)
+        // GET: api/Pickups/5
+        [ResponseType(typeof(Pickup))]
+        public IHttpActionResult GetPickup(int id)
         {
-            Run run = db.Runs.Find(id);
-            if (run == null)
+            Pickup pickup = db.Pickups.Find(id);
+            if (pickup == null)
             {
                 return NotFound();
             }
 
-            return Ok(run);
+            return Ok(pickup);
         }
 
-        // PUT: api/Runs/5
+        // PUT: api/Pickups/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutRun(int id, Run run)
+        public IHttpActionResult PutPickup(int id, Pickup pickup)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != run.RunId)
+            if (id != pickup.PickupId)
             {
                 return BadRequest();
             }
 
-            db.Entry(run).State = EntityState.Modified;
+            db.Entry(pickup).State = EntityState.Modified;
 
             try
             {
@@ -57,7 +58,7 @@ namespace WebApi.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!RunExists(id))
+                if (!PickupExists(id))
                 {
                     return NotFound();
                 }
@@ -70,35 +71,35 @@ namespace WebApi.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Runs
-        [ResponseType(typeof(Run))]
-        public IHttpActionResult PostRun(Run run)
+        // POST: api/Pickups
+        [ResponseType(typeof(Pickup))]
+        public IHttpActionResult PostPickup(Pickup pickup)
         {
             if (!ModelState.IsValid)
             {
-				return BadRequest(ModelState);
+                return BadRequest(ModelState);
             }
 
-            db.Runs.Add(run);
+            db.Pickups.Add(pickup);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = run.RunId }, run);
+            return CreatedAtRoute("DefaultApi", new { id = pickup.PickupId }, pickup);
         }
 
-        // DELETE: api/Runs/5
-        [ResponseType(typeof(Run))]
-        public IHttpActionResult DeleteRun(int id)
+        // DELETE: api/Pickups/5
+        [ResponseType(typeof(Pickup))]
+        public IHttpActionResult DeletePickup(int id)
         {
-            Run run = db.Runs.Find(id);
-            if (run == null)
+            Pickup pickup = db.Pickups.Find(id);
+            if (pickup == null)
             {
                 return NotFound();
             }
 
-            db.Runs.Remove(run);
+            db.Pickups.Remove(pickup);
             db.SaveChanges();
 
-            return Ok(run);
+            return Ok(pickup);
         }
 
         protected override void Dispose(bool disposing)
@@ -110,10 +111,9 @@ namespace WebApi.Controllers
             base.Dispose(disposing);
         }
 
-        private bool RunExists(int id)
+        private bool PickupExists(int id)
         {
-            return db.Runs.Count(e => e.RunId == id) > 0;
+            return db.Pickups.Count(e => e.PickupId == id) > 0;
         }
-	}
-
+    }
 }

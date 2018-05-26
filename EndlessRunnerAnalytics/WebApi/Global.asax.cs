@@ -12,6 +12,11 @@ namespace WebApi
         protected void Application_Start()
         {
             GlobalConfiguration.Configure(WebApiConfig.Register);
-        }
+			GlobalConfiguration.Configuration.Formatters.Remove(GlobalConfiguration.Configuration.Formatters.XmlFormatter);
+
+			var json = GlobalConfiguration.Configuration.Formatters.JsonFormatter;
+			json.SerializerSettings.PreserveReferencesHandling =
+				Newtonsoft.Json.PreserveReferencesHandling.All;
+		}
     }
 }

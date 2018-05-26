@@ -134,9 +134,11 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\PickupsController.cs" />
     <Compile Include="Controllers\RunsController.cs" />
+    <Compile Include="DatabaseConfig\PGConfiguration.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\EndSession.cs" />
     <Compile Include="Models\PGDbContext.cs" />
     <Compile Include="Models\Pickup.cs" />
     <Compile Include="Models\Run.cs" />

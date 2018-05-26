@@ -8,19 +8,11 @@ namespace WebApi.Models
 {
 	public class PGDbContext : DbContext
 	{
-		public PGDbContext(string schema) : this()
-		{
+		public PGDbContext(string schema) : this() { }
 
-		}
-
-		public PGDbContext() : base("PGConnectionString")
-		{
-			Configuration.ProxyCreationEnabled = false;
-			Configuration.LazyLoadingEnabled = true;
-		}
+		public PGDbContext() : base("PGConnectionString") { }
 
 		public DbSet<Run> Runs { get; set; }
-
 		public DbSet<Pickup> Pickups { get; set; }
 	}
 }

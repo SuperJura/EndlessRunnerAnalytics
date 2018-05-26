@@ -17,9 +17,9 @@ namespace WebApi.Controllers
         private PGDbContext db = new PGDbContext();
 
         // GET: api/Runs
-        public IQueryable<Run> GetRuns()
+        public List<Run> GetRuns()
         {
-            return db.Runs;
+            return db.Runs.ToList();
         }
 
         // GET: api/Runs/5

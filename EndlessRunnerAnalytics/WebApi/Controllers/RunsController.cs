@@ -67,7 +67,7 @@ namespace WebApi.Controllers
                 }
             }
 
-            return StatusCode(HttpStatusCode.NoContent);
+			return StatusCode(HttpStatusCode.NoContent);
         }
 
         // POST: api/Runs
@@ -79,8 +79,11 @@ namespace WebApi.Controllers
 				return BadRequest(ModelState);
             }
 
-            db.Runs.Add(run);
-            db.SaveChanges();
+			db.Runs.Add(run);
+			db.SaveChanges();
+
+			//db.Pickups.AddRange(run.Pickups);
+			//db.SaveChanges();
 
             return CreatedAtRoute("DefaultApi", new { id = run.RunId }, run);
         }
@@ -115,5 +118,4 @@ namespace WebApi.Controllers
             return db.Runs.Count(e => e.RunId == id) > 0;
         }
 	}
-
 }

@@ -14,5 +14,7 @@ namespace WebApi.Models
 
 		public DbSet<Run> Runs { get; set; }
 		public DbSet<Pickup> Pickups { get; set; }
+
+		public System.Data.Entity.DbSet<WebApi.Models.EndGameSession> EndGameSessions { get; set; }
 	}
 }

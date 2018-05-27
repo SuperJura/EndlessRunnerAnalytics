@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Runtime.Serialization;
 
 namespace WebApi.Models
 {
@@ -13,7 +12,6 @@ namespace WebApi.Models
 		public int Score { get; set; }
 		public float Distance { get; set; }
 		public virtual ICollection<Pickup> Pickups { get; set; }
-
 
 		public Run() { }
 	}

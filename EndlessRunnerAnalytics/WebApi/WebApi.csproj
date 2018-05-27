@@ -132,6 +132,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\EndGameSessionsController.cs" />
     <Compile Include="Controllers\PickupsController.cs" />
     <Compile Include="Controllers\RunsController.cs" />
     <Compile Include="DatabaseConfig\PGConfiguration.cs" />

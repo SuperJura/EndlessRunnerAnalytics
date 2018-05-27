@@ -7,9 +7,10 @@ using System.Web;
 namespace WebApi.Models
 {
 	[Table("EndRun", Schema = "public")]
-	public class EndSession
+	public class EndGameSession
 	{
-		public int EndSessionId { get; set; }
+		public int EndGameSessionId { get; set; }
 		public int RetriesCount { get; set; }
+		public float GameTime { get; set; }
 	}
 }

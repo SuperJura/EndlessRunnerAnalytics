@@ -12,9 +12,8 @@ namespace WebApi.Models
 
 		public PGDbContext() : base("PGConnectionString") { }
 
-		public DbSet<Run> Runs { get; set; }
-		public DbSet<Pickup> Pickups { get; set; }
-
-		public System.Data.Entity.DbSet<WebApi.Models.EndGameSession> EndGameSessions { get; set; }
+		public virtual DbSet<Run> Runs { get; set; }
+		public virtual DbSet<Pickup> Pickups { get; set; }
+		public virtual DbSet<EndGameSession> EndGameSessions { get; set; }
 	}
 }

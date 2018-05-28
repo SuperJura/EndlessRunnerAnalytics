@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using WebApi.Models;
@@ -14,19 +11,24 @@ namespace WebApi.Controllers
 {
     public class RunsController : ApiController
     {
-        private PGDbContext db = new PGDbContext();
+		private PGDbContext context;
+
+		public RunsController(PGDbContext context)
+		{
+			this.context = context;
+		}
 
         // GET: api/Runs
         public List<Run> GetRuns()
         {
-            return db.Runs.ToList();
+            return context.Runs.ToList();
         }
 
         // GET: api/Runs/5
         [ResponseType(typeof(Run))]
         public IHttpActionResult GetRun(int id)
         {
-            Run run = db.Runs.Find(id);
+            Run run = context.Runs.Find(id);
             if (run == null)
             {
                 return NotFound();
@@ -49,11 +51,11 @@ namespace WebApi.Controllers
                 return BadRequest();
             }
 
-            db.Entry(run).State = EntityState.Modified;
+            context.Entry(run).State = EntityState.Modified;
 
             try
             {
-                db.SaveChanges();
+                context.SaveChanges();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -79,8 +81,8 @@ namespace WebApi.Controllers
 				return BadRequest(ModelState);
             }
 
-			db.Runs.Add(run);
-			db.SaveChanges();
+			context.Runs.Add(run);
+			context.SaveChanges();
 
 			//db.Pickups.AddRange(run.Pickups);
 			//db.SaveChanges();
@@ -92,14 +94,14 @@ namespace WebApi.Controllers
         [ResponseType(typeof(Run))]
         public IHttpActionResult DeleteRun(int id)
         {
-            Run run = db.Runs.Find(id);
+            Run run = context.Runs.Find(id);
             if (run == null)
             {
                 return NotFound();
             }
 
-            db.Runs.Remove(run);
-            db.SaveChanges();
+            context.Runs.Remove(run);
+            context.SaveChanges();
 
             return Ok(run);
         }
@@ -108,14 +110,14 @@ namespace WebApi.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                context.Dispose();
             }
             base.Dispose(disposing);
         }
 
         private bool RunExists(int id)
         {
-            return db.Runs.Count(e => e.RunId == id) > 0;
+            return context.Runs.Count(e => e.RunId == id) > 0;
         }
 	}
 }

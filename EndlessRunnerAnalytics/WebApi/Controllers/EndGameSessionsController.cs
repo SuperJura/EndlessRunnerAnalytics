@@ -14,19 +14,24 @@ namespace WebApi.Controllers
 {
     public class EndGameSessionsController : ApiController
     {
-        private PGDbContext db = new PGDbContext();
+		private PGDbContext context;
+
+		public EndGameSessionsController(PGDbContext context)
+		{
+			this.context = context;
+		}
 
         // GET: api/EndGameSessions
         public IQueryable<EndGameSession> GetEndGameSessions()
         {
-            return db.EndGameSessions;
+            return context.EndGameSessions;
         }
 
         // GET: api/EndGameSessions/5
         [ResponseType(typeof(EndGameSession))]
         public IHttpActionResult GetEndGameSession(int id)
         {
-            EndGameSession endGameSession = db.EndGameSessions.Find(id);
+            EndGameSession endGameSession = context.EndGameSessions.Find(id);
             if (endGameSession == null)
             {
                 return NotFound();
@@ -49,11 +54,11 @@ namespace WebApi.Controllers
                 return BadRequest();
             }
 
-            db.Entry(endGameSession).State = EntityState.Modified;
+            context.Entry(endGameSession).State = EntityState.Modified;
 
             try
             {
-                db.SaveChanges();
+                context.SaveChanges();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -79,8 +84,8 @@ namespace WebApi.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.EndGameSessions.Add(endGameSession);
-            db.SaveChanges();
+            context.EndGameSessions.Add(endGameSession);
+            context.SaveChanges();
 
             return CreatedAtRoute("DefaultApi", new { id = endGameSession.EndGameSessionId }, endGameSession);
         }
@@ -89,14 +94,14 @@ namespace WebApi.Controllers
         [ResponseType(typeof(EndGameSession))]
         public IHttpActionResult DeleteEndGameSession(int id)
         {
-            EndGameSession endGameSession = db.EndGameSessions.Find(id);
+            EndGameSession endGameSession = context.EndGameSessions.Find(id);
             if (endGameSession == null)
             {
                 return NotFound();
             }
 
-            db.EndGameSessions.Remove(endGameSession);
-            db.SaveChanges();
+            context.EndGameSessions.Remove(endGameSession);
+            context.SaveChanges();
 
             return Ok(endGameSession);
         }
@@ -105,14 +110,14 @@ namespace WebApi.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                context.Dispose();
             }
             base.Dispose(disposing);
         }
 
         private bool EndGameSessionExists(int id)
         {
-            return db.EndGameSessions.Count(e => e.EndGameSessionId == id) > 0;
+            return context.EndGameSessions.Count(e => e.EndGameSessionId == id) > 0;
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace WebApi.Models
+namespace EndlessRunner.Models
 {
 	[Table("Pickup", Schema = "public")]
 	public class Pickup

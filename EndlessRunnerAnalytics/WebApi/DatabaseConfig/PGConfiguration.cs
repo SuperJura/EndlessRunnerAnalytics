@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity.Migrations;
-using System.Linq;
-using System.Web;
-using WebApi.Models;
+﻿using System.Data.Entity.Migrations;
 
-namespace WebApi.DatabaseConfig
+namespace WebApi.DB
 {
 	internal sealed class PGConfiguration : DbMigrationsConfiguration<PGDbContext>
 	{

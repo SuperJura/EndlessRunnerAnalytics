@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace WebApi.Models
+namespace EndlessRunner.Models
 {
 	[Table("Run", Schema = "public")]
 	public class Run

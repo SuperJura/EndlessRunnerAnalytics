@@ -75,14 +75,20 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ControllerTests\PickupTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RunTests.cs" />
+    <Compile Include="ControllerTests\RunTests.cs" />
+    <Compile Include="ControllerTests\EndGameSessionTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\RunnerModels\RunnerModels.csproj">
+      <Project>{ccc14b6f-6300-4aa3-9917-6b5e9af4d0b2}</Project>
+      <Name>RunnerModels</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WebApi\WebApi.csproj">
       <Project>{D14EA2A0-DC27-4E60-AD6D-777578BEDAAF}</Project>
       <Name>WebApi</Name>

@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
-using WebApi.Models;
+using EndlessRunner.Models;
+using WebApi.DB;
 
 namespace WebApi.Controllers
 {
@@ -21,58 +16,28 @@ namespace WebApi.Controllers
 			this.context = context;
 		}
 
+		public EndGameSessionsController()
+		{
+			context = new PGDbContext();
+		}
+
         // GET: api/EndGameSessions
-        public IQueryable<EndGameSession> GetEndGameSessions()
+        public List<EndGameSession> GetEndGameSessions()
         {
-            return context.EndGameSessions;
+            return context.EndGameSessions.ToList();
         }
 
         // GET: api/EndGameSessions/5
         [ResponseType(typeof(EndGameSession))]
         public IHttpActionResult GetEndGameSession(int id)
         {
-            EndGameSession endGameSession = context.EndGameSessions.Find(id);
+            EndGameSession endGameSession = context.EndGameSessions.FirstOrDefault(x => x.EndGameSessionId == id);
             if (endGameSession == null)
             {
                 return NotFound();
             }
 
             return Ok(endGameSession);
-        }
-
-        // PUT: api/EndGameSessions/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutEndGameSession(int id, EndGameSession endGameSession)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != endGameSession.EndGameSessionId)
-            {
-                return BadRequest();
-            }
-
-            context.Entry(endGameSession).State = EntityState.Modified;
-
-            try
-            {
-                context.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!EndGameSessionExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return StatusCode(HttpStatusCode.NoContent);
         }
 
         // POST: api/EndGameSessions
@@ -104,15 +69,6 @@ namespace WebApi.Controllers
             context.SaveChanges();
 
             return Ok(endGameSession);
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                context.Dispose();
-            }
-            base.Dispose(disposing);
         }
 
         private bool EndGameSessionExists(int id)

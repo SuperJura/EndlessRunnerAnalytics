@@ -1,4 +1,7 @@
-﻿<div class="jumbotron">
+﻿@{
+    ViewBag.Title = "Dashboard";
+}
+<div class="jumbotron">
     <h1>Endless runner Dashboard</h1>
     <p class="lead">Number of runs: @ViewBag.NumOfRuns</p>
     <p class="lead">Number of Pickup: @ViewBag.NumOfPickups</p>
@@ -7,7 +10,9 @@
 
 <div class="row">
     <div class="col-md-3">
-        <p><a class="btn btn-primary" href="https://go.microsoft.com/fwlink/?LinkId=301865">Runs details</a></p>
+        <p>
+            @Html.ActionLink("Runs", "Index", "Runs", new object { }, new { @class = "btn btn-primary" })
+        </p>
     </div>
     <div class="col-md-3">
         <p><a class="btn btn-primary" href="https://go.microsoft.com/fwlink/?LinkId=301865">Pickups details</a></p>

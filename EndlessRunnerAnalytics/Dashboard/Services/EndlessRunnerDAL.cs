@@ -11,9 +11,9 @@ namespace Dashboard.Services
 {
 	public class EndlessRunnerDAL : IEndlessRunnerDAL
 	{
-		const string RUNS_PATH = "http://localhost:29418/api/Runs";
-		const string PICKUPS_PATH = "http://localhost:29418/api/Pickups";
-		const string ENDGAMESESSION_PATH = "http://localhost:29418/api/EndGameSessions";
+		public const string RUNS_PATH = "http://localhost:29418/api/Runs";
+		public const string PICKUPS_PATH = "http://localhost:29418/api/Pickups";
+		public const string ENDGAMESESSION_PATH = "http://localhost:29418/api/EndGameSessions";
 
 		public List<EndGameSession> GetAllEndGameSessions()
 		{

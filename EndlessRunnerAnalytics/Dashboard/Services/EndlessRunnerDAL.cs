@@ -12,19 +12,21 @@ namespace Dashboard.Services
 	public class EndlessRunnerDAL : IEndlessRunnerDAL
 	{
 		const string RUNS_PATH = "http://localhost:29418/api/Runs";
-
 		const string PICKUPS_PATH = "http://localhost:29418/api/Pickups";
-
 		const string ENDGAMESESSION_PATH = "http://localhost:29418/api/EndGameSessions";
 
 		public List<EndGameSession> GetAllEndGameSessions()
 		{
-			throw new NotImplementedException();
+			List<EndGameSession> endGames = RESTUtil.GetFromURL<List<EndGameSession>>(ENDGAMESESSION_PATH);
+			if(endGames == null) endGames = new List<EndGameSession>();
+			return endGames;
 		}
 
 		public List<Pickup> GetAllPickups()
 		{
-			throw new NotImplementedException();
+			List<Pickup> pickups = RESTUtil.GetFromURL<List<Pickup>>(PICKUPS_PATH);
+			if(pickups == null) pickups = new List<Pickup>();
+			return pickups;
 		}
 
 		public List<Pickup> GetAllPickupsForRunId(int runId)
@@ -34,19 +36,9 @@ namespace Dashboard.Services
 
 		public List<Run> GetAllRuns()
 		{
-			List<Run> output = new List<Run>();
-			HttpClient client = new HttpClient();
-			client.BaseAddress = new Uri(RUNS_PATH);
-			client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-			HttpResponseMessage response = client.GetAsync(RUNS_PATH).Result;
-
-			if(response.IsSuccessStatusCode)
-			{
-				string json = response.Content.ReadAsStringAsync().Result;
-				output = JsonConvert.DeserializeObject<List<Run>>(json);
-			}
-
-			return output;
+			List<Run> runs = RESTUtil.GetFromURL<List<Run>>(RUNS_PATH);
+			if(runs == null) runs = new List<Run>();
+			return runs;
 		}
 
 		public EndGameSession GetEndGameSessionById(int id)

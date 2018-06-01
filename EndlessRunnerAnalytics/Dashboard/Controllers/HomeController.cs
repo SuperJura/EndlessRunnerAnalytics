@@ -2,8 +2,6 @@
 using EndlessRunner.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Dashboard.Controllers
@@ -11,23 +9,27 @@ namespace Dashboard.Controllers
 	public class HomeController : Controller
 	{
 		IEndlessRunnerDAL dal = new EndlessRunnerDAL();
+
 		public ActionResult Index()
 		{
-			List<Run> runs = dal.GetAllRuns();
-			ViewBag.NumOfRuns = runs.Count;
-			return View();
-		}
+			float timePlayedInSeconds = 0;
+			List<EndGameSession> sessions = dal.GetAllEndGameSessions();
+			for(int i = 0; i < sessions.Count; i++)
+			{
+				timePlayedInSeconds += sessions[i].GameTime;
+			}
+			TimeSpan timePlayed = TimeSpan.FromSeconds(timePlayedInSeconds);
 
-		public ActionResult About()
-		{
-			ViewBag.Message = "Your application description page.";
+			int numOfPickups = 0;
+			List<Pickup> pickups = dal.GetAllPickups();
+			for(int i = 0; i < pickups.Count; i++)
+			{
+				numOfPickups += pickups[i].PickupCount;
+			}
 
-			return View();
-		}
-
-		public ActionResult Contact()
-		{
-			ViewBag.Message = "Your contact page.";
+			ViewBag.NumOfRuns = dal.GetAllRuns().Count;
+			ViewBag.NumOfPickups = numOfPickups;
+			ViewBag.TimePlayed = timePlayed.ToString(@"hh\:mm\:ss");
 
 			return View();
 		}

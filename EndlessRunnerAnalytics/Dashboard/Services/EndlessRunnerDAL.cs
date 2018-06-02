@@ -53,7 +53,9 @@ namespace Dashboard.Services
 
 		public Run GetRunById(int id)
 		{
-			throw new NotImplementedException();
+			Run run = RESTUtil.GetFromURL<Run>(RUNS_PATH + "/" + id);
+			if(run == null) run = new Run() { RunId = -1 };
+			return run;
 		}
 	}
 }

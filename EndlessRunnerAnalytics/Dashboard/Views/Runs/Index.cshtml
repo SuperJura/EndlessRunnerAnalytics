@@ -2,52 +2,71 @@
     ViewBag.Title = "Runs";
 }
 
-<h2>Runs</h2>
+<h2 class="text-center">Runs data</h2>
 
 <div class="jumbotron">
     <div class="row">
-        <div class="col-md-3">
-            <div id="runsPickupsChart"></div>
+        <div class="col-md-3 col-sm-6 container">
+            <div id="runsPickupsChart" class="bigDiv">Fetching data</div>
+        </div>
+        <div class="col-md-4 col-sm-6 container">
+            <div id="meanTime">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td>Total Runs</td>
+                            <td>@ViewBag.totalRuns</td>
+                        </tr>
+                        <tr>
+                            <td>Mean Score</td>
+                            <td>@ViewBag.meanTime</td>
+                        </tr>
+                        <tr>
+                            <td>Mean Coins</td>
+                            <td>@ViewBag.meanCoins</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
 
 <script>
     google.charts.load('current', { packages: ['corechart'] });
-    google.charts.setOnLoadCallback(getRunData);
+    google.charts.setOnLoadCallback(drawChart);
 
-    function getRunData() {
-        console.log("getting");
-        $.ajax({
-            url: '@Html.Raw(ViewBag.RunURL)',
-            success: function (result) {
-                console.log("getting here");
-                drawChart(result);
-            },
-            error: function (e) { alert('Failed!'); console.log(e) },
-        });
-    }
+    var pickupsChart;
+    var pickupsData;
 
-    function drawChart(runJson) {
-        console.log("here");
-        var data = google.visualization.arrayToDataTable([
-            ['Year', 'Sales', 'Expenses'],
-            ['2004', 1000, 400],
-            ['2005', 1170, 460],
-            ['2006', 660, 1120],
-            ['2007', 1030, 540]
-        ]);
+    function drawChart()
+    {
+        var jsonData = JSON.parse(@Html.Raw(Json.Encode(ViewBag.runPickups)))
+        pickupsData = [['Runs', 'Pickups', 'score']]
+        $.each(jsonData, function (obj) {
+            console.log(obj)
+            pickupsData.push(([jsonData[obj].RunId, jsonData[obj].PickupCount, jsonData[obj].Score]))
+        })
+
+        var data = google.visualization.arrayToDataTable(pickupsData);
 
         var options = {
-            title: 'Company Performance',
+            title: 'All Runs data',
             curveType: 'function',
             legend: { position: 'bottom' }
         };
 
-        var chart = new google.visualization.LineChart(document.getElementById('runsPickupsChart'));
+        pickupsChart = new google.visualization.LineChart(document.getElementById('runsPickupsChart'));
+        google.visualization.events.addListener(pickupsChart, 'select', selectHandler);
 
-        chart.draw(data, options);
+
+        pickupsChart.draw(data, options);
     }
 
-
+    function selectHandler() {
+        var selection = pickupsChart.getSelection();
+        if (selection.length != 0) {
+            window.location = "@Url.Action("RunDetails", "Runs")" + "?id=" + pickupsData[selection[0].row + 1][0];
+        }
+    }
 </script>

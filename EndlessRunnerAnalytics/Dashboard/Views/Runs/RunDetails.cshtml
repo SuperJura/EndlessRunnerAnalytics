@@ -1,0 +1,49 @@
+﻿@model EndlessRunner.Models.Run
+
+@{
+    ViewBag.Title = "RunDetails";
+}
+
+<h2>RunDetails</h2>
+
+<div>
+    <h4>Run</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.LeftCount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LeftCount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RightCount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RightCount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Score)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Score)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Distance)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Distance)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

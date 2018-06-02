@@ -25,5 +25,12 @@ namespace Dashboard.Services
 
 			return default(T);
 		}
+
+		public static string DictionaryToJson(Dictionary<int, List<int>> dictionary)
+		{
+			var entries = dictionary.Select(d =>
+				string.Format("\"{0}\": [{1}]", d.Key, string.Join(",", d.Value)));
+			return "{" + string.Join(",", entries) + "}";
+		}
 	}
 }

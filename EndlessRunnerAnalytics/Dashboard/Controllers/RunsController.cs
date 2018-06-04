@@ -14,6 +14,11 @@ namespace Dashboard.Controllers
 
         public ActionResult Index()
         {
+			return IndexWithCount(0);
+		}
+
+		public ActionResult IndexWithCount(int count)
+		{
 			List<Run> allRuns = dal.GetAllRuns();
 
 			float meanScore = allRuns.Sum(x => x.Score) / (float)allRuns.Count;
@@ -23,20 +28,25 @@ namespace Dashboard.Controllers
 			{
 				maxCoins += item.Pickups.Where(x => x.PickupName == "Coin").Sum(x => x.PickupCount);
 			}
-
 			float meanCoins = maxCoins / (float)allRuns.Count;
 
-			ViewBag.runPickups = JsonConvert.SerializeObject(GetAllPickupsInRuns(allRuns));
+			List<Run> runs = count == 0 ? allRuns : allRuns.TakeLastN(count);
+			ViewBag.runPickups = JsonConvert.SerializeObject(GetAllPickupsInRuns(runs));
 			ViewBag.meanTime = meanScore;
 			ViewBag.meanCoins = meanCoins;
 			ViewBag.totalRuns = allRuns.Count;
 
-			return View();
-        }
+			return View("Index");
+		}
 
-		public ActionResult RunDetails(int id)
+		public ActionResult RunDetails(int id, string back)
 		{
 			Run run = dal.GetRunById(id);
+			ViewBag.slowCount = run.Pickups.Where(x => x.PickupName == "Slow").Sum(x => x.PickupCount);
+			ViewBag.easyCount = run.Pickups.Where(x => x.PickupName == "Easy").Sum(x => x.PickupCount);
+			ViewBag.coinCount = run.Pickups.Where(x => x.PickupName == "Coin").Sum(x => x.PickupCount);
+
+			ViewBag.back = back;
 			return View(run);
 		}
 

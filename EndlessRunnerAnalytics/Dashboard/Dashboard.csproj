@@ -154,13 +154,17 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\EndGameSessionsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PickupsController.cs" />
     <Compile Include="Controllers\RunsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\PickupData.cs" />
     <Compile Include="Models\RunPickupsData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\CollectionsUtil.cs" />
     <Compile Include="Services\EndlessRunnerDAL.cs" />
     <Compile Include="Services\IEndlessRunnerDAL.cs" />
     <Compile Include="Services\RESTUtil.cs" />
@@ -202,9 +206,13 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Runs\Index.cshtml" />
     <Content Include="Views\Runs\RunDetails.cshtml" />
+    <Content Include="Views\Pickups\Index.cshtml" />
+    <Content Include="Views\EndGameSessions\Index.cshtml" />
+    <Content Include="Views\Shared\CountPicker.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Pickup\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

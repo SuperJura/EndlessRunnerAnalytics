@@ -1,29 +1,29 @@
 ﻿@{
-    ViewBag.Title = "Runs";
+    ViewBag.Title = "Pickup";
 }
 
-<h2 class="text-center">Runs data</h2>
+<h2 class="text-center">Pickup data</h2>
 
 <div class="jumbotron">
     <div class="row">
         <div class="col-md-3 col-sm-6 container">
-            <div id="runsPickupsChart" class="bigDiv">Fetching data</div>
+            <div id="pickupsChart" class="bigDiv">Fetching data</div>
         </div>
         <div class="col-md-4 col-sm-6 container">
             <div id="meanTime">
                 <table class="table">
                     <tbody>
                         <tr>
-                            <td>Total Runs</td>
-                            <td>@ViewBag.totalRuns</td>
-                        </tr>
-                        <tr>
-                            <td>Mean Score</td>
-                            <td>@ViewBag.meanTime</td>
-                        </tr>
-                        <tr>
-                            <td>Mean Coins</td>
+                            <td>Mean coins</td>
                             <td>@ViewBag.meanCoins</td>
+                        </tr>
+                        <tr>
+                            <td>Mean Slow pickups</td>
+                            <td>@ViewBag.meanSlow</td>
+                        </tr>
+                        <tr>
+                            <td>Mean Easy pickups</td>
+                            <td>@ViewBag.meanEasy</td>
                         </tr>
                     </tbody>
                 </table>
@@ -32,7 +32,7 @@
     </div>
     <div class="row">
         <div class="col-md-3">
-            @{Html.RenderPartial("CountPicker", "Runs");}
+            @{Html.RenderPartial("CountPicker", "Pickups");}
         </div>
         <div class="col-md-3">
             <a class="btn btn-primary" style="visibility:hidden" id="btnShowDetails">Show Run detail</a>
@@ -49,22 +49,22 @@
 
     function drawChart()
     {
-        var jsonData = JSON.parse(@Html.Raw(Json.Encode(ViewBag.runPickups)))
-        pickupsData = [['Runs', 'Pickups', 'score']]
+        var jsonData = JSON.parse(@Html.Raw(Json.Encode(ViewBag.pickups)))
+        pickupsData = [['Runs', 'Coin', 'Slow', 'Easy']]
         $.each(jsonData, function (obj) {
             console.log(obj)
-            pickupsData.push(([jsonData[obj].RunId, jsonData[obj].PickupCount, jsonData[obj].Score]))
+            pickupsData.push(([jsonData[obj].RunId, jsonData[obj].CoinCount, jsonData[obj].SlowCount, jsonData[obj].EasyCount]))
         })
 
         var data = google.visualization.arrayToDataTable(pickupsData);
 
         var options = {
-            title: 'All Runs data',
+            title: 'All Pickups data',
             curveType: 'function',
             legend: { position: 'bottom' }
         };
 
-        pickupsChart = new google.visualization.LineChart(document.getElementById('runsPickupsChart'));
+        pickupsChart = new google.visualization.LineChart(document.getElementById('pickupsChart'));
         google.visualization.events.addListener(pickupsChart, 'select', selectHandler);
 
         pickupsChart.draw(data, options);
@@ -75,7 +75,7 @@
         var selection = pickupsChart.getSelection();
         if (selection.length != 0) {
             detailsBtn.onclick = function () {
-                window.location = "@Url.Action("RunDetails", "Runs")" + "?id=" + pickupsData[selection[0].row + 1][0] + "&back=Runs";
+                window.location = "@Url.Action("RunDetails", "Runs")" + "?id=" + pickupsData[selection[0].row + 1][0] + "&back=Pickups";
             }
             detailsBtn.style.visibility = "visible";
         }
@@ -83,5 +83,4 @@
             detailsBtn.style.visibility = "hidden";
         }
     }
-
 </script>

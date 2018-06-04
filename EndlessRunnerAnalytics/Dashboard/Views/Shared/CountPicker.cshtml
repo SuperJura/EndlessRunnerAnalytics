@@ -1,0 +1,14 @@
+﻿@model string
+
+<div class="dropdown">
+    <button class="btn btn-default dropdown-toggle" type="button" id="countMenu" data-toggle="dropdown">
+        Show last <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="countMenu">
+        <li><a href="/@Model/IndexWithCount?count=2">2</a></li>
+        <li><a href="/@Model/IndexWithCount?count=5">5</a></li>
+        <li><a href="/@Model/IndexWithCount?count=10">10</a></li>
+        <li><a href="/@Model/IndexWithCount?count=50">50</a></li>
+        <li><a href="/@Model/IndexWithCount?count=0">All</a></li>
+    </ul>
+</div>

@@ -1,49 +1,56 @@
 ﻿@model EndlessRunner.Models.Run
 
 @{
-    ViewBag.Title = "RunDetails";
+    ViewBag.Title = "Run Details";
 }
 
-<h2>RunDetails</h2>
+<h2 class="text-center">Run details</h2>
 
-<div>
-    <h4>Run</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.LeftCount)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.LeftCount)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.RightCount)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.RightCount)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Score)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Score)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Distance)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Distance)
-        </dd>
-
-    </dl>
+<div class="jumbotron">
+    <div class="row">
+        <div class="col-md-6 container">
+            <table class="table" id="tblDetails">
+                <tbody>
+                    <tr>
+                        <td>Score</td>
+                        <td>@Model.Score</td>
+                    </tr>
+                    <tr>
+                        <td>Distance</td>
+                        <td>@Model.Distance</td>
+                    </tr>
+                    <tr>
+                        <td>Left Intersections</td>
+                        <td>@Model.LeftCount</td>
+                    </tr>
+                    <tr>
+                        <td>Right Intersections</td>
+                        <td>@Model.RightCount</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-6 container">
+            <table class="table" id="tblPickups">
+                <tbody>
+                    <tr>
+                        <td>Coins</td>
+                        <td>@ViewBag.coinCount</td>
+                    </tr>
+                    <tr>
+                        <td>Slow pickups</td>
+                        <td>@ViewBag.slowCount</td>
+                    </tr>
+                    <tr>
+                        <td>Easy pickups</td>
+                        <td>@ViewBag.easyCount</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Back to List", "Index")
+
+<p class="text-center">
+    @Html.ActionLink("Back", "Index", (string)ViewBag.back, new { }, new { @class = "btn btn-primary" })
 </p>

@@ -1,0 +1,76 @@
+﻿
+@{
+    ViewBag.Title = "End Game Sessions";
+}
+
+<h2 class="text-center">End game sessions data</h2>
+
+<div class="jumbotron">
+    <div class="row">
+        <div class="col-md-3 col-sm-6 container">
+            <div id="sessionsChart" class="bigDiv">Fetching data</div>
+        </div>
+        <div class="col-md-4 col-sm-6 container">
+            <div id="meanTime">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td>Total sessions</td>
+                            <td>@ViewBag.totalSessions</td>
+                        </tr>
+                        <tr>
+                            <td>Mean retries</td>
+                            <td>@ViewBag.meanRetries</td>
+                        </tr>
+                        <tr>
+                            <td>Mean game time</td>
+                            <td>@ViewBag.meanGameTime </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 col-sm-6 container">
+            @{Html.RenderPartial("CountPicker", "EndGameSessions");}
+        </div>
+    </div>
+</div>
+
+    <script>
+    google.charts.load('current', { packages: ['corechart'] });
+                    google.charts.setOnLoadCallback(drawChart);
+
+                    var pickupsChart;
+                    var pickupsData;
+
+                    function drawChart()
+                    {
+                        var jsonData = JSON.parse(@Html.Raw(Json.Encode(ViewBag.sessions)))
+                        pickupsData = [['Sessions', 'Retries', 'Game time']]
+        $.each(jsonData, function (obj) {
+                            console.log(obj)
+            pickupsData.push(([obj, jsonData[obj].RetriesCount, jsonData[obj].GameTime]))
+        })
+
+        var data = google.visualization.arrayToDataTable(pickupsData);
+
+                    var options = {
+            title: 'All Sessions data',
+            series: {
+                        0: { targetAxisIndex: 0 },
+                1: { targetAxisIndex: 1 }
+                    },
+            title: 'All Sessions data',
+            vAxes: {
+                        0: { title: 'Retries' },
+                1: { title: 'GameTime' }
+                    }
+                };
+
+                pickupsChart = new google.visualization.ColumnChart(document.getElementById('sessionsChart'));
+
+        pickupsChart.draw(data, options);
+    }
+    </script>

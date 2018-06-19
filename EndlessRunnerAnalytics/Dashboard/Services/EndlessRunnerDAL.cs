@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Web;
+using Dashboard.AOP;
 using EndlessRunner.Models;
-using Newtonsoft.Json;
 
 namespace Dashboard.Services
 {
+	[TimeMethod]
 	public class EndlessRunnerDAL : IEndlessRunnerDAL
 	{
 		public const string RUNS_PATH = "http://localhost:29418/api/Runs";

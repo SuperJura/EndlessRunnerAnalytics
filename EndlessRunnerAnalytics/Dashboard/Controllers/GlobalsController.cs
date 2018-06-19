@@ -1,4 +1,5 @@
-﻿using Dashboard.Services;
+﻿using Dashboard.AOP;
+using Dashboard.Services;
 using EndlessRunner.Models;
 using System;
 using System.Collections.Generic;
@@ -6,10 +7,11 @@ using System.Web.Mvc;
 
 namespace Dashboard.Controllers
 {
-    public class GlobalsController : Controller
+	[LogMethod]
+	public class GlobalsController : Controller
 	{
 		IEndlessRunnerDAL dal = new EndlessRunnerDAL();
-		// GET: Globals
+
 		public ActionResult Index()
 		{
 			float timePlayedInSeconds = 0;

@@ -1,16 +1,16 @@
 ﻿using Dashboard.Services;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using EndlessRunner.Models;
 using Dashboard.Models;
 using Newtonsoft.Json;
+using Dashboard.AOP;
 
 namespace Dashboard.Controllers
 {
-    public class PickupsController : Controller
+	[LogMethod]
+	public class PickupsController : Controller
     {
 		IEndlessRunnerDAL dal = new EndlessRunnerDAL();
 

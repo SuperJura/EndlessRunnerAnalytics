@@ -1,4 +1,5 @@
-﻿using Dashboard.Models;
+﻿using Dashboard.AOP;
+using Dashboard.Models;
 using Dashboard.Services;
 using EndlessRunner.Models;
 using Newtonsoft.Json;
@@ -8,6 +9,7 @@ using System.Web.Mvc;
 
 namespace Dashboard.Controllers
 {
+	[LogMethod]
     public class EndGameSessionsController : Controller
     {
 		IEndlessRunnerDAL dal = new EndlessRunnerDAL();

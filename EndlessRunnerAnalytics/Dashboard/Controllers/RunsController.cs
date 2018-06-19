@@ -5,10 +5,12 @@ using System.Linq;
 using System.Web.Mvc;
 using Dashboard.Models;
 using Newtonsoft.Json;
+using Dashboard.AOP;
 
 namespace Dashboard.Controllers
 {
-    public class RunsController : Controller
+	[LogMethod]
+	public class RunsController : Controller
     {
 		IEndlessRunnerDAL dal = new EndlessRunnerDAL();
 

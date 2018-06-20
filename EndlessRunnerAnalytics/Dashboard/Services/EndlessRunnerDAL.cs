@@ -6,7 +6,7 @@ using EndlessRunner.Models;
 
 namespace Dashboard.Services
 {
-	[TimeMethod]
+	[TimeMethod(AttributeTargetElements = PostSharp.Extensibility.MulticastTargets.Method)]
 	public class EndlessRunnerDAL : IEndlessRunnerDAL
 	{
 		public const string RUNS_PATH = "http://localhost:29418/api/Runs";

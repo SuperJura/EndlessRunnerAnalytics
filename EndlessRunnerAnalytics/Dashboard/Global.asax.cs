@@ -19,8 +19,13 @@ namespace Dashboard
 			BundleConfig.RegisterBundles(BundleTable.Bundles);
 
 			Metric.Config
-				.WithHttpEndpoint("http://localhost:1234/")
+				.WithHttpEndpoint("http://localhost:1237/")
 				.WithAllCounters();
+		}
+
+		protected void Application_End()
+		{
+			Metric.Config.Dispose();
 		}
 	}
 }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Threading;
 using System.Web;
 
 namespace Dashboard.Services
@@ -12,6 +13,7 @@ namespace Dashboard.Services
 	{
 		public static T GetFromURL<T>(string url)
 		{
+			Thread.Sleep(1000);
 			HttpClient client = new HttpClient();
 			client.BaseAddress = new Uri(url);
 			client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));

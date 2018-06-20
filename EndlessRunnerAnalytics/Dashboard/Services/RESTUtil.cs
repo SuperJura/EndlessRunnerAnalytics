@@ -13,7 +13,6 @@ namespace Dashboard.Services
 	{
 		public static T GetFromURL<T>(string url)
 		{
-			Thread.Sleep(1000);
 			HttpClient client = new HttpClient();
 			client.BaseAddress = new Uri(url);
 			client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));

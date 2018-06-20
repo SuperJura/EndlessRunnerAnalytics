@@ -13,15 +13,13 @@ namespace Dashboard.AOP
 
 		public override void OnEntry(MethodExecutionArgs args)
 		{
-			Debug.WriteLine("Start " + args.Method.Name + " " + args.Method.DeclaringType.Name);
-			timer = Metric.Timer("method duration", Unit.Requests);
-			timer.StartRecording();
+			timer = Metric.Timer("Method " + args.Method.Name + " duration", Unit.Requests);
+			context = timer.NewContext();
 		}
 
 		public override void OnSuccess(MethodExecutionArgs args)
 		{
-			Debug.WriteLine("End " + args.Method.Name + " " + args.Method.DeclaringType.Name);
-			timer.EndRecording();
+			context.Dispose();
 		}
 	}
 }

@@ -158,6 +158,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AOP\LogError.cs" />
     <Compile Include="AOP\LogMethod.cs" />
     <Compile Include="AOP\RESTCallCount.cs" />
     <Compile Include="AOP\TimeMethod.cs" />

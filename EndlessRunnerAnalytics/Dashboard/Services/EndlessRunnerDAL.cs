@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Dashboard.AOP;
 using EndlessRunner.Models;
 
@@ -38,16 +37,6 @@ namespace Dashboard.Services
 			List<Run> runs = RESTUtil.GetFromURL<List<Run>>(RUNS_PATH);
 			if(runs == null) runs = new List<Run>();
 			return runs;
-		}
-
-		public EndGameSession GetEndGameSessionById(int id)
-		{
-			throw new NotImplementedException();
-		}
-
-		public Pickup GetPickupById(int pickupId)
-		{
-			throw new NotImplementedException();
 		}
 
 		public Run GetRunById(int id)

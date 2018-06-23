@@ -13,11 +13,5 @@ namespace Dashboard.AOP
 		{
 			logger.Write("Finished execution of " + args.Method.Name + " on object of type " + args.Method.DeclaringType.Name, LoggerTag.INFO);
 		}
-
-		public override void OnException(MethodExecutionArgs args)
-		{
-			logger.Write(args.Method.Name + " on object of type" + args.Method.DeclaringType.Name + " failed!", LoggerTag.ERROR);
-			logger.Write(args.Exception.Message, LoggerTag.ERROR);
-		}
 	}
 }

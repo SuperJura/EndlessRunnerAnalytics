@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using Metrics;
 
 namespace Dashboard
 {
@@ -16,6 +17,15 @@ namespace Dashboard
 			FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
 			RouteConfig.RegisterRoutes(RouteTable.Routes);
 			BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+			Metric.Config
+				.WithHttpEndpoint("http://localhost:1234/")
+				.WithAllCounters();
+		}
+
+		protected void Application_End()
+		{
+			Metric.Config.Dispose();
 		}
 	}
 }

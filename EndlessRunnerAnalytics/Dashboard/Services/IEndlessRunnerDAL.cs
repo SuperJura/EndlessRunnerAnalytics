@@ -10,9 +10,7 @@ namespace Dashboard.Services
 
 		List<Pickup> GetAllPickups();
 		List<Pickup> GetAllPickupsForRunId(int runId);
-		Pickup GetPickupById(int pickupId);
 
 		List<EndGameSession> GetAllEndGameSessions();
-		EndGameSession GetEndGameSessionById(int id);
 	}
 }
